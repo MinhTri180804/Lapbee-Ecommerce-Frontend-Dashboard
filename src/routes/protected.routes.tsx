@@ -35,10 +35,6 @@ export const protectedRoutes: RouteObject[] = [
 
     children: [
       {
-        index: true,
-        element: <div>Home dashboard</div>,
-      },
-      {
         path: "testing",
         element: <div>xin chao dang la testing</div>,
       },

@@ -9,7 +9,7 @@ export const RootRedirect = () => {
   const navigate = useNavigate();
   const previousPath = useLocation().state?.previousPath;
   const updateProfile = useProfileStore.use.updateData();
-  const isLogout = useProfileStore.use.isLoggout();
+  const isLogout = useProfileStore.use.isLogout();
   const profile = useProfileStore.use.data();
 
   const DEFAULT_REDIRECT_SUCCESS = previousPath ? previousPath : "/dashboard";
@@ -21,7 +21,9 @@ export const RootRedirect = () => {
         .getMe()
         .then((profileData) => {
           updateProfile(profileData);
-          navigate(DEFAULT_REDIRECT_SUCCESS);
+          navigate(DEFAULT_REDIRECT_SUCCESS, {
+            replace: true,
+          });
         })
         .catch(() => {
           //TODO: Implement handle get profile error
@@ -40,7 +42,7 @@ export const RootRedirect = () => {
   }
 
   if (profile) {
-    return <Navigate to={"/dashboard"} replace />;
+    return <Navigate to={DEFAULT_REDIRECT_SUCCESS} replace />;
   }
 
   return (

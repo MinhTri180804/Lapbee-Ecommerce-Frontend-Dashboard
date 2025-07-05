@@ -12,7 +12,9 @@
     "gen:feature": "plop --plopfile plopfile.cjs"
   },
   "dependencies": {
+    "@cloudinary/url-gen": "^1.21.0",
     "@hookform/resolvers": "^5.1.1",
+    "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-label": "^2.1.7",
@@ -24,6 +26,7 @@
     "auto-zustand-selectors-hook": "^3.0.1",
     "axios": "^1.10.0",
     "class-variance-authority": "^0.7.1",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.19.2",
     "lucide-react": "^0.525.0",
@@ -43,6 +46,8 @@
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
     "autoprefixer": "^10.4.21",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
@@ -61,5 +66,10 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

@@ -1,10 +1,19 @@
 import { motion } from "motion/react";
+import type { FC } from "react";
 
-export function LoadingCircleSpinner() {
+type LoadingCircleSpinnerProps = {
+  width?: number;
+  height?: number;
+};
+
+export const LoadingCircleSpinner: FC<LoadingCircleSpinnerProps> = ({
+  width = 50,
+  height = 50,
+}) => {
   return (
-    <div className="flex h-dvh w-dvw items-center justify-center rounded-md p-10">
+    <div className="flex items-center justify-center rounded-md">
       <motion.div
-        className="border-muted border-t-primary h-12 w-12 rounded-full border-4"
+        className={`border-muted border-t-primary h-[${height}px] w-[${width}px] rounded-full border-4`}
         animate={{ rotate: 360 }}
         transition={{
           duration: 1.5,
@@ -14,4 +23,4 @@ export function LoadingCircleSpinner() {
       />
     </div>
   );
-}
+};
