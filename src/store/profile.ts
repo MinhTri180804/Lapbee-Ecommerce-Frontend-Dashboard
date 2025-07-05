@@ -4,7 +4,7 @@ import { create } from "zustand";
 
 type State = {
   data: Profile | null;
-  isLoggout: boolean;
+  isLogout: boolean;
 };
 
 type Actions = {
@@ -15,7 +15,7 @@ type Actions = {
 
 const profileStore = create<State & Actions>((set) => ({
   data: null,
-  isLoggout: false,
+  isLogout: false,
   updateData: (data) =>
     set(() => ({
       data,
