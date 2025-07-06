@@ -3,6 +3,9 @@ import { Navigate, useLocation, useNavigate } from "react-router";
 import * as profileApi from "@/apis/profile/api";
 import { useProfileStore } from "@/store/profile";
 import { LoadingCircleSpinner } from "@/components/loading/loadingCircleSpinner";
+import { routeName } from "@/constants/routeName";
+
+const { dashboard, auth } = routeName;
 
 //TODO: Implement animation redirect in here later
 export const RootRedirect = () => {
@@ -12,7 +15,9 @@ export const RootRedirect = () => {
   const isLogout = useProfileStore.use.isLogout();
   const profile = useProfileStore.use.data();
 
-  const DEFAULT_REDIRECT_SUCCESS = previousPath ? previousPath : "/dashboard";
+  const DEFAULT_REDIRECT_SUCCESS = previousPath
+    ? previousPath
+    : `/${dashboard.ROOT}`;
   console.log(DEFAULT_REDIRECT_SUCCESS);
 
   useEffect(() => {
@@ -27,7 +32,7 @@ export const RootRedirect = () => {
         })
         .catch(() => {
           //TODO: Implement handle get profile error
-          navigate("/auth/login");
+          navigate(`/${auth.ROOT}/${auth.children.LOGIN}`);
         });
     };
 
@@ -38,7 +43,7 @@ export const RootRedirect = () => {
   }, [navigate, updateProfile, DEFAULT_REDIRECT_SUCCESS, isLogout, profile]);
 
   if (isLogout) {
-    return <Navigate to="/auth/login" />;
+    return <Navigate to={`/${auth.ROOT}/${auth.children.LOGIN}`} replace />;
   }
 
   if (profile) {

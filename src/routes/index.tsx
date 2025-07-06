@@ -2,8 +2,8 @@ import NotFound from "@/feedbacks/notFound";
 import { RootRedirect } from "@/pages/rootRedirect";
 import type { FC } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
-import { guestRoutes } from "./guest.routes";
-import { protectedRoutes } from "./protected.routes";
+import { guestRoutes } from "@/routes/guest";
+import { protectedRoutes } from "@/routes/protected";
 
 const router = createBrowserRouter([
   {
