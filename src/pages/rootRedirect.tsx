@@ -17,8 +17,7 @@ export const RootRedirect = () => {
 
   const DEFAULT_REDIRECT_SUCCESS = previousPath
     ? previousPath
-    : `/${dashboard.ROOT}`;
-  console.log(DEFAULT_REDIRECT_SUCCESS);
+    : `/${dashboard.children.home.ROOT}`;
 
   useEffect(() => {
     const fetchProfile = async () => {

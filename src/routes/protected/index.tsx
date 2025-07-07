@@ -9,11 +9,13 @@ import {
   useNavigate,
   type RouteObject,
 } from "react-router";
-import { brandRoutes } from "./brand.routes";
+import { managementRoutes } from "./management";
+import { homeRoutes } from "./home";
 
 type ProtectedRoutesProps = PropsWithChildren;
 
-const { ROOT, children } = routeName.dashboard;
+const { ROOT } = routeName.dashboard;
+const HOME_ROOT = routeName.dashboard.children.home.ROOT;
 
 // eslint-disable-next-line
 const ProtectedRoutes: FC<ProtectedRoutesProps> = ({ children }) => {
@@ -44,10 +46,11 @@ export const protectedRoutes: RouteObject[] = [
 
     children: [
       {
-        path: children.BRAND.ROOT,
+        path: HOME_ROOT,
         element: <Outlet />,
-        children: brandRoutes,
+        children: homeRoutes,
       },
+      ...managementRoutes,
     ],
   },
 ];

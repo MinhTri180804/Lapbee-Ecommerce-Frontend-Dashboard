@@ -7,11 +7,22 @@ export const routeName = {
     },
   },
   dashboard: {
-    ROOT: "trang-chu",
+    ROOT: "/",
     children: {
-      BRAND: {
-        ROOT: "thuong-hieu",
-        CREATE: "them-moi",
+      home: {
+        ROOT: "trang-chu",
+      },
+      management: {
+        ROOT: "quan-li",
+        children: {
+          brand: {
+            ROOT: "thuong-hieu",
+            CREATE: "them-moi",
+          },
+        },
+      },
+      statistic: {
+        ROOT: "thong-ke",
       },
     },
   },

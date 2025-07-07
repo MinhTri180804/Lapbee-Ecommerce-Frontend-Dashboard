@@ -37,7 +37,7 @@ export default function MainLayout() {
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink asChild>
+                    <BreadcrumbLink asChild className="text-foreground">
                       <Link to={"#"}>Brand</Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
