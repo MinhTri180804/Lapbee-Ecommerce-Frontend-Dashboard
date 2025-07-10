@@ -1,4 +1,4 @@
-import { env } from "@/utils/env";
+import { env } from "@/constants/env";
 import axios from "axios";
 const axiosInstance = axios.create({
   baseURL: env.API_URL,

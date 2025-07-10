@@ -1,10 +1,21 @@
 import { LoadingCircleSpinner } from "@/components/loading/loadingCircleSpinner";
+import { routeName } from "@/constants/routeName";
 import MainLayout from "@/layouts/mainLayout";
 import { useProfileStore } from "@/store/profile";
 import { useEffect, type FC, type PropsWithChildren } from "react";
-import { useLocation, useNavigate, type RouteObject } from "react-router";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  type RouteObject,
+} from "react-router";
+import { managementRoutes } from "./management";
+import { homeRoutes } from "./home";
 
 type ProtectedRoutesProps = PropsWithChildren;
+
+const { ROOT } = routeName.dashboard;
+const HOME_ROOT = routeName.dashboard.children.home.ROOT;
 
 // eslint-disable-next-line
 const ProtectedRoutes: FC<ProtectedRoutesProps> = ({ children }) => {
@@ -16,7 +27,10 @@ const ProtectedRoutes: FC<ProtectedRoutesProps> = ({ children }) => {
     if (!profile) {
       navigate("/", {
         replace: true,
-        state: { previousPath: location.pathname },
+        state: {
+          previousPath: location.pathname,
+          searchPreviousPath: location.search,
+        },
       });
     }
   }, [navigate, profile, location]);
@@ -26,7 +40,7 @@ const ProtectedRoutes: FC<ProtectedRoutesProps> = ({ children }) => {
 
 export const protectedRoutes: RouteObject[] = [
   {
-    path: "dashboard",
+    path: ROOT,
     element: (
       <ProtectedRoutes>
         <MainLayout />
@@ -35,9 +49,11 @@ export const protectedRoutes: RouteObject[] = [
 
     children: [
       {
-        path: "testing",
-        element: <div>xin chao dang la testing</div>,
+        path: HOME_ROOT,
+        element: <Outlet />,
+        children: homeRoutes,
       },
+      ...managementRoutes,
     ],
   },
 ];
