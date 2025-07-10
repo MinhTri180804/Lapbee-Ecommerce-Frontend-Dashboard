@@ -20,7 +20,6 @@ import {
 import { useProfileStore } from "@/store/profile";
 import type { Profile } from "@/types/profile";
 import { NavLink, useLocation } from "react-router";
-import { axiosInstance } from "@/lib/axios";
 import {
   Collapsible,
   CollapsibleContent,

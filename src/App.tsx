@@ -3,6 +3,9 @@ import "./App.css";
 import { Routes } from "@/routes";
 import { useErrorCodesStore } from "./store/errorCodes";
 import * as errorCodesApi from "@/apis/errorCodes/api";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   const updateErrorCodes = useErrorCodesStore.use.updateData();
@@ -14,9 +17,13 @@ function App() {
     };
 
     fetchErrorCodes();
-  });
+  }, [updateErrorCodes]);
 
-  return <Routes />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Routes />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

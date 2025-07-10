@@ -27,7 +27,10 @@ const ProtectedRoutes: FC<ProtectedRoutesProps> = ({ children }) => {
     if (!profile) {
       navigate("/", {
         replace: true,
-        state: { previousPath: location.pathname },
+        state: {
+          previousPath: location.pathname,
+          searchPreviousPath: location.search,
+        },
       });
     }
   }, [navigate, profile, location]);
