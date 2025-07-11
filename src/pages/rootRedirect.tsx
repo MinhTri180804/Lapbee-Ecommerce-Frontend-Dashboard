@@ -79,8 +79,8 @@ export const RootRedirect = () => {
   }
 
   return (
-    <div>
-      <LoadingCircleSpinner />
+    <div className="flex h-dvh w-dvw items-center justify-center">
+      <LoadingCircleSpinner width={120} height={120} />
     </div>
   );
 };
