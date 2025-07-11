@@ -9,7 +9,7 @@ type FolderProps = {
 
 export const Folder: FC<FolderProps> = ({ name }) => {
   return (
-    <div className="flex cursor-pointer items-center justify-start gap-3 rounded-sm border-1 p-3 transition-shadow duration-150 hover:shadow-sm">
+    <div className="flex cursor-pointer items-center justify-start gap-3 rounded-xs border-1 p-3 transition-shadow duration-150 hover:shadow-sm">
       <img src={folderSVG} alt="folder-icon" width={32} height={32} />
       <p className="text-foreground text-sm capitalize">{name}</p>
     </div>
