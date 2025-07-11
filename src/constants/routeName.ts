@@ -19,6 +19,9 @@ export const routeName = {
             ROOT: "thuong-hieu",
             CREATE: "them-moi",
           },
+          file: {
+            ROOT: "tap-tin",
+          },
         },
       },
       statistic: {

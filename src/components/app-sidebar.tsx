@@ -1,4 +1,4 @@
-import { User, ChevronUp, ChevronDown, List, Home } from "lucide-react";
+import { User, ChevronUp, ChevronDown, List, Home, File } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -28,6 +28,7 @@ import {
 import { routeName } from "@/constants/routeName";
 import classNames from "classnames";
 import * as authApi from "@/apis/auth/api";
+import { Item } from "@radix-ui/react-dropdown-menu";
 
 const managementRouteName = routeName.dashboard.children.management;
 const homeRouteName = routeName.dashboard.children.home;
@@ -38,6 +39,14 @@ const brands = [
     title: "Danh sách",
     url: `${managementRouteName.ROOT}/${managementRouteName.children.brand.ROOT}`,
     icon: List,
+  },
+];
+
+const files = [
+  {
+    title: "Tất cả",
+    url: `${managementRouteName.ROOT}/${managementRouteName.children.file.ROOT}`,
+    icon: File,
   },
 ];
 
@@ -95,44 +104,92 @@ export function AppSidebar() {
           <SidebarGroupLabel>Quản lí</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <Collapsible
-                defaultOpen={false}
-                className="group group/collapsible text-sidebar-foreground/70"
-              >
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton
-                    className={classNames("data-[state=open]:text-foreground", {
-                      "text-foreground": isBrandActive,
-                    })}
-                  >
-                    <div className="text-sm">Thương hiệu</div>
-                    <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
+              <SidebarMenuItem>
+                <Collapsible
+                  defaultOpen={false}
+                  className="group group/collapsible text-sidebar-foreground/70"
+                >
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton
+                      className={classNames(
+                        "data-[state=open]:text-foreground",
+                        {
+                          "text-foreground": isBrandActive,
+                        },
+                      )}
+                    >
+                      <div className="text-sm">Thương hiệu</div>
+                      <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
 
-                <CollapsibleContent>
-                  <SidebarGroupContent>
-                    {brands.map((brand) => (
-                      <SidebarMenuItem key={brand.title}>
-                        <SidebarMenuButton
-                          asChild
-                          className="hover:group-data-[state=open]:text-foreground hover:bg-transparent"
-                        >
-                          <NavLink to={brand.url}>
-                            {({ isActive }) => (
-                              <span
-                                className={navLinkClassnames(isActive, true)}
-                              >
-                                {brand.title}
-                              </span>
-                            )}
-                          </NavLink>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarGroupContent>
-                </CollapsibleContent>
-              </Collapsible>
+                  <CollapsibleContent>
+                    <SidebarGroupContent>
+                      {brands.map((brand) => (
+                        <SidebarMenuItem key={brand.title}>
+                          <SidebarMenuButton
+                            asChild
+                            className="hover:group-data-[state=open]:text-foreground hover:bg-transparent"
+                          >
+                            <NavLink to={brand.url}>
+                              {({ isActive }) => (
+                                <span
+                                  className={navLinkClassnames(isActive, true)}
+                                >
+                                  {brand.title}
+                                </span>
+                              )}
+                            </NavLink>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarGroupContent>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Collapsible
+                  defaultOpen={false}
+                  className="group group/collapsible text-sidebar-foreground/70"
+                >
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton
+                      className={classNames(
+                        "data-[state=open]:text-foreground",
+                        {
+                          "text-foreground": isBrandActive,
+                        },
+                      )}
+                    >
+                      <div className="text-sm">Tập tin</div>
+                      <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+
+                  <CollapsibleContent>
+                    <SidebarGroupContent>
+                      {files.map((file) => (
+                        <SidebarMenuItem key={file.title}>
+                          <SidebarMenuButton
+                            asChild
+                            className="hover:group-data-[state=open]:text-foreground hover:bg-transparent"
+                          >
+                            <NavLink to={file.url}>
+                              {({ isActive }) => (
+                                <span
+                                  className={navLinkClassnames(isActive, true)}
+                                >
+                                  {file.title}
+                                </span>
+                              )}
+                            </NavLink>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarGroupContent>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
