@@ -1,4 +1,4 @@
-import { User, ChevronUp, ChevronDown, List, Home, File } from "lucide-react";
+import * as authApi from "@/apis/auth/api";
 import {
   Sidebar,
   SidebarContent,
@@ -11,24 +11,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { routeName } from "@/constants/routeName";
 import { useProfileStore } from "@/store/profile";
 import type { Profile } from "@/types/profile";
+import classNames from "classnames";
+import { ChevronDown, ChevronUp, File, Home, List, User } from "lucide-react";
 import { NavLink, useLocation } from "react-router";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { routeName } from "@/constants/routeName";
-import classNames from "classnames";
-import * as authApi from "@/apis/auth/api";
-import { Item } from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const managementRouteName = routeName.dashboard.children.management;
 const homeRouteName = routeName.dashboard.children.home;
