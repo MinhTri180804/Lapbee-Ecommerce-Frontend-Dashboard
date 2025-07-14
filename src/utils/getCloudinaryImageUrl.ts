@@ -1,5 +1,5 @@
 import { Cloudinary } from "@cloudinary/url-gen";
-import { env } from "./env";
+import { env } from "@/constants/env";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 
 type GetCloudinaryImageUrlParams = {

@@ -5,9 +5,14 @@ type BaseResponse = {
 };
 
 type DefaultGenericTypeResponse = null;
+type DefaultGenericTypeMetadataResponse = null;
 
-export type ResponseSuccess<T = DefaultGenericTypeResponse> = BaseResponse & {
+export type ResponseSuccess<
+  T = DefaultGenericTypeResponse,
+  D = DefaultGenericTypeMetadataResponse,
+> = BaseResponse & {
   data: T;
+  metadata: D;
 };
 
 export type ResponseError<T = DefaultGenericTypeResponse> = BaseResponse & {

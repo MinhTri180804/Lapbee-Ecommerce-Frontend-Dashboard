@@ -1,0 +1,1 @@
+export { useGetAllBrand } from "./useGetAllBrand";

@@ -12,9 +12,9 @@ export const login = async ({ data }: LoginParams) => {
     await axiosInstance.post("/auth/local/login", data);
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error);
-      throw (error as AxiosError<ResponseError>).response!
-        .data as ResponseError;
+      throw (error as AxiosError<ResponseError>).response!.data;
     }
+
+    throw error;
   }
 };

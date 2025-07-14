@@ -19,7 +19,7 @@ export default function MainLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="flex max-h-dvh min-h-dvh flex-col">
         <header className="px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -37,7 +37,7 @@ export default function MainLayout() {
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink asChild>
+                    <BreadcrumbLink asChild className="text-foreground">
                       <Link to={"#"}>Brand</Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
@@ -48,7 +48,7 @@ export default function MainLayout() {
             <ProfileNav />
           </div>
         </header>
-        <main className="p-4">
+        <main className="flex-1 overflow-hidden p-4">
           <Outlet />
         </main>
       </SidebarInset>
