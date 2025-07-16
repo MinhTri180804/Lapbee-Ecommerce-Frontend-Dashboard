@@ -4,15 +4,17 @@ import type {
   PaginationFileResources,
   PaginationFolderResources,
   PaginationSearchFileResources,
+  PaginationSubFolderResources,
 } from "../types";
 import type {
   GetRootFileResourcesParams,
   GetRootFolderResourcesParams,
+  GetSubFolderResourcesParams,
   IResourceManagerApi,
   SearchFileResourcesParams,
 } from "./interface";
 import { axiosInstance } from "@/lib/axios";
-import type { Folder } from "@/types/folder";
+import type { Folder, SubFolder } from "@/types/folder";
 
 const API_URL = "/cloudinary";
 
@@ -77,6 +79,19 @@ export class ResourceManagerApi implements IResourceManagerApi {
       `${API_URL}/files/search?filename=${filename}&maxResult=${maxResult}&${queryParams.join("&")}`,
     );
 
+    return response;
+  }
+
+  public async getSubFolderResources({
+    folder,
+  }: GetSubFolderResourcesParams): Promise<
+    ResponseSuccess<SubFolder[], PaginationSubFolderResources>
+  > {
+    const query = folder !== "root" ? `?folder=${folder}` : "";
+    const response = await axiosInstance.get<
+      SubFolder,
+      ResponseSuccess<SubFolder[], PaginationSubFolderResources>
+    >(`${API_URL}/folders/sub${query}`);
     return response;
   }
 }

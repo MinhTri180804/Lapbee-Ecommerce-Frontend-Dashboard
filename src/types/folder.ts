@@ -3,3 +3,5 @@ export type Folder = {
   path: string;
   externalId: string;
 };
+
+export type SubFolder = Folder;

@@ -1,7 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Folder, FolderSkeleton } from "@/components/ui/folder";
+import { Folder, FolderBack, FolderSkeleton } from "@/components/ui/folder";
 import type { Folder as FolderType } from "@/types/folder";
 import type { FC } from "react";
+import { useSearchParams } from "react-router";
+import {
+  ResourcesManagerSection,
+  ResourcesManagerSectionContent,
+  ResourcesManagerSectionContentItem,
+  ResourcesManagerSectionFooter,
+  ResourcesManagerSectionTitle,
+} from "./resourcesManagerSection";
 
 type FolderListProps = {
   folders: FolderType[];
@@ -16,30 +24,42 @@ export const FolderList: FC<FolderListProps> = ({
   handleViewMore,
   isLoading,
 }) => {
+  const [searchParams] = useSearchParams();
+  const isRootFolder = (searchParams.get("folder") || "root") === "root";
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="text-foreground text-base font-medium">Thư mục</div>
+    <ResourcesManagerSection>
+      <ResourcesManagerSectionTitle>
+        <div className="text-foreground text-base font-medium">Thư mục</div>
+      </ResourcesManagerSectionTitle>
 
-      <div className="grid grid-cols-6 gap-4">
-        {isLoading ? (
-          <FolderListLoading />
-        ) : (
-          folders.map((folder, index) => (
-            <Folder key={`folder-key-${index}`} data={folder} />
-          ))
+      <ResourcesManagerSectionContent>
+        <ResourcesManagerSectionContentItem className="grid grid-cols-6 gap-4">
+          {isLoading ? (
+            <FolderListLoading />
+          ) : (
+            <>
+              {!isRootFolder && <FolderBack name="Quay lại" />}
+              {folders.map((folder, index) => (
+                <Folder key={`folder-key-${index}`} data={folder} />
+              ))}
+            </>
+          )}
+        </ResourcesManagerSectionContentItem>
+      </ResourcesManagerSectionContent>
+
+      <ResourcesManagerSectionFooter>
+        {nextCursor && (
+          <Button
+            onClick={() => handleViewMore(nextCursor)}
+            size={"lg"}
+            variant={"outline"}
+          >
+            Xem thêm
+          </Button>
         )}
-      </div>
-
-      {nextCursor && (
-        <Button
-          onClick={() => handleViewMore(nextCursor)}
-          size={"lg"}
-          variant={"outline"}
-        >
-          Xem thêm
-        </Button>
-      )}
-    </div>
+      </ResourcesManagerSectionFooter>
+    </ResourcesManagerSection>
   );
 };
 

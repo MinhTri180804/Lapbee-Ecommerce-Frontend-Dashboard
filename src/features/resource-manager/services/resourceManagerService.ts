@@ -15,6 +15,10 @@ type SearchFileResourcesParams = {
   maxResult: string;
 };
 
+type GetSubFolderResourcesParams = {
+  folder: string;
+};
+
 export class ResourceManagerService {
   private _api: ResourceManagerApi;
 
@@ -42,5 +46,9 @@ export class ResourceManagerService {
       filename,
       maxResult,
     });
+  }
+
+  public getSubFolderResources({ folder }: GetSubFolderResourcesParams) {
+    return this._api.getSubFolderResources({ folder });
   }
 }
