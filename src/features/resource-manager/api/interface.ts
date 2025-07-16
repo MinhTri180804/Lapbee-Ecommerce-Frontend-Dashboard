@@ -1,10 +1,11 @@
 import type { File, SearchFile } from "@/types/file";
 import type { ResponseSuccess } from "@/types/response";
-import type { Folder } from "@/types/folder";
+import type { Folder, SubFolder } from "@/types/folder";
 import type {
   PaginationFileResources,
   PaginationFolderResources,
   PaginationSearchFileResources,
+  PaginationSubFolderResources,
 } from "../types";
 
 export type GetRootFileResourcesParams = {
@@ -22,6 +23,10 @@ export type SearchFileResourcesParams = {
   folder: string | "root";
 };
 
+export type GetSubFolderResourcesParams = {
+  folder: string;
+};
+
 export interface IResourceManagerApi {
   getRootFileResources: (
     params: GetRootFileResourcesParams,
@@ -34,4 +39,8 @@ export interface IResourceManagerApi {
   searchFileResources: (
     params: SearchFileResourcesParams,
   ) => Promise<ResponseSuccess<SearchFile[], PaginationSearchFileResources>>;
+
+  getSubFolderResources: (
+    params: GetSubFolderResourcesParams,
+  ) => Promise<ResponseSuccess<SubFolder[], PaginationSubFolderResources>>;
 }
