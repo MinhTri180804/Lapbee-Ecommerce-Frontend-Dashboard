@@ -44,6 +44,8 @@ export const Dropzone: FC<DropzoneProps> = ({
 
   const handleOnChange = () => {
     if (inputUploadRef.current!.files) {
+      const files = Array.from(inputUploadRef.current!.files);
+      console.log("Files changed:", files);
       const imagesPreview: ImagePreview[] = [
         ...inputUploadRef.current!.files,
       ].map((file) => {
@@ -142,7 +144,7 @@ export const Dropzone: FC<DropzoneProps> = ({
     >
       <label
         htmlFor="dropzone-file"
-        className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 dark:hover:bg-gray-800"
+        className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <svg
@@ -170,7 +172,7 @@ export const Dropzone: FC<DropzoneProps> = ({
               .join(" ,")}
           </p>
 
-          <p className="drak:text-gray-400 text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Giới hạn kích thước file: {limitFileSize.value} {limitFileSize.type}
           </p>
         </div>

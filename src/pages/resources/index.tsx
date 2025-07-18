@@ -8,7 +8,6 @@ import {
   ResourcesManagerSectionContent,
   ResourcesManagerSectionContentItem,
   ResourcesManagerSectionTitle,
-  Sidebar,
   useGetSubFolderResources,
   useSearchFileResources,
 } from "@/features/resource-manager";
@@ -16,21 +15,15 @@ import type { EmptyFilesProps } from "@/features/resource-manager/components/fil
 import { useDebounce } from "@/hooks/useDebounce";
 import type { File } from "@/types/file";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { useEffect, useMemo, useState, type FC } from "react";
+import { useCallback, useEffect, useMemo, useState, type FC } from "react";
 import { useSearchParams } from "react-router";
 
-export const FileManagerPage: FC = () => {
+export const ResourcesManagerPage: FC = () => {
   return (
-    <div className="grid h-full grid-cols-12 gap-4">
-      <div className="col-span-2">
-        <Sidebar />
-      </div>
-
-      <div className="col-span-10 flex flex-col gap-6 overflow-auto px-4">
-        <FolderListManager />
-        <FileListManager />
-      </div>
-    </div>
+    <>
+      <FolderListManager />
+      <FileListManager />
+    </>
   );
 };
 
@@ -142,23 +135,32 @@ const FileManagerSection = () => {
     folder: "root",
   });
 
-  const handleViewMore = async () => {
+  const handleViewMore = useCallback(async () => {
     if (data?.metadata.nextCursor) {
       setNextCursor(data?.metadata.nextCursor);
       setIsTriggerLoading(true);
     }
-  };
+  }, [data?.metadata.nextCursor]);
 
-  const handleSearchFile = (value: string) => {
-    setSearchFilename(value);
-    setNextCursor(null);
-    setSearchParams((previous) => ({
-      ...previous,
-      filename: value,
-    }));
-    setFilesData([]);
-    setIsSearchLoading(true);
-  };
+  const handleSearchFile = useCallback(
+    (value: string) => {
+      setSearchFilename(value);
+      setNextCursor(null);
+      setSearchParams((previous) => ({
+        ...previous,
+        filename: value,
+      }));
+      setFilesData([]);
+      setIsSearchLoading(true);
+    },
+    [
+      setSearchFilename,
+      setNextCursor,
+      setSearchParams,
+      setFilesData,
+      setIsSearchLoading,
+    ],
+  );
 
   const handleAddNewDocument = () => {};
 
@@ -203,18 +205,18 @@ const FileManagerSection = () => {
           }}
         />
       </ResourcesManagerSectionContentItem>
-      <ResourcesManagerSectionContentItem>
-        {data?.metadata.nextCursor !== null && !isLoading && (
+      {data?.metadata.nextCursor !== null && !isLoading && (
+        <ResourcesManagerSectionContentItem className="flex w-full justify-center">
           <Button
             onClick={() => handleViewMore()}
-            size={"sm"}
+            size={"lg"}
             variant={"outline"}
-            className="rounded-xs"
+            className="w-64 rounded-xs"
           >
             Tải thêm
           </Button>
-        )}
-      </ResourcesManagerSectionContentItem>
+        </ResourcesManagerSectionContentItem>
+      )}
     </>
   );
 };
@@ -269,45 +271,48 @@ const FileManagerBasedFolderSection = () => {
   const emptyFileState: {
     true: EmptyFilesProps;
     false: EmptyFilesProps;
-  } = {
-    true: {
-      titleEmpty: <EmptyFileTitle title="Không tìm thấy tài liệu..." />,
-      descriptionEmpty: (
-        <EmptyFileSearchDescriptionBasedFolder
-          filename={searchFilename}
-          folderBased={searchParams.get("folder") || "root"}
-        />
-      ),
-      children: (
-        <Button
-          onClick={handleAddNewDocument}
-          className="rounded-sm"
-          variant={"outline"}
-          size={"lg"}
-        >
-          Thêm mới tài liệu
-        </Button>
-      ),
-    },
-    false: {
-      titleEmpty: <EmptyFileTitle title="Không tìm thấy tài liệu..." />,
-      descriptionEmpty: (
-        <EmptyFileDescriptionFolderBased
-          folderBased={searchParams.get("folder") || "root"}
-        />
-      ),
-      children: (
-        <Button
-          onClick={handleAddNewDocument}
-          className="rounded-sm"
-          variant={"outline"}
-          size={"lg"}
-        >
-          Thêm mới tài liệu
-        </Button>
-      ),
-    },
-  };
+  } = useMemo(
+    () => ({
+      true: {
+        titleEmpty: <EmptyFileTitle title="Không tìm thấy tài liệu..." />,
+        descriptionEmpty: (
+          <EmptyFileSearchDescriptionBasedFolder
+            filename={searchFilename}
+            folderBased={searchParams.get("folder") || "root"}
+          />
+        ),
+        children: (
+          <Button
+            onClick={handleAddNewDocument}
+            className="rounded-sm"
+            variant={"outline"}
+            size={"lg"}
+          >
+            Thêm mới tài liệu
+          </Button>
+        ),
+      },
+      false: {
+        titleEmpty: <EmptyFileTitle title="Không tìm thấy tài liệu..." />,
+        descriptionEmpty: (
+          <EmptyFileDescriptionFolderBased
+            folderBased={searchParams.get("folder") || "root"}
+          />
+        ),
+        children: (
+          <Button
+            onClick={handleAddNewDocument}
+            className="rounded-sm"
+            variant={"outline"}
+            size={"lg"}
+          >
+            Thêm mới tài liệu
+          </Button>
+        ),
+      },
+    }),
+    [searchFilename, searchParams],
+  );
 
   return (
     <>
@@ -327,18 +332,18 @@ const FileManagerBasedFolderSection = () => {
           emptyProps={emptyFileState[`${searchFilename !== ""}`]}
         />
       </ResourcesManagerSectionContentItem>
-      <ResourcesManagerSectionContentItem>
-        {data?.metadata.nextCursor !== null && !isLoading && (
+      {data?.metadata.nextCursor !== null && !isLoading && (
+        <ResourcesManagerSectionContentItem className="flex w-full justify-center">
           <Button
             onClick={() => handleViewMore()}
-            size={"sm"}
+            size={"lg"}
             variant={"outline"}
-            className="rounded-xs"
+            className="w-64 rounded-xs"
           >
             Tải thêm
           </Button>
-        )}
-      </ResourcesManagerSectionContentItem>
+        </ResourcesManagerSectionContentItem>
+      )}
     </>
   );
 };

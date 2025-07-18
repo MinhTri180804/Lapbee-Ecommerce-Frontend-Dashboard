@@ -1,7 +1,7 @@
 import { routeName } from "@/constants/routeName";
 import { Outlet, type RouteObject } from "react-router";
 import { brandRoutes } from "./brand.routes";
-import { fileRoutes } from "./file.routes";
+import { resourcesRoutes } from "./resources.routes";
 
 const { ROOT, children } = routeName.dashboard.children.management;
 
@@ -15,8 +15,8 @@ export const managementRoutes: RouteObject[] = [
         children: brandRoutes,
       },
       {
-        path: children.file.ROOT,
-        children: fileRoutes,
+        path: children.resources.ROOT,
+        children: resourcesRoutes,
       },
     ],
   },

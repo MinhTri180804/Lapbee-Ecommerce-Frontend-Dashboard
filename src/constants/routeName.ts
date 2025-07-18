@@ -19,8 +19,20 @@ export const routeName = {
             ROOT: "thuong-hieu",
             CREATE: "them-moi",
           },
-          file: {
-            ROOT: "tap-tin",
+          resources: {
+            ROOT: "tai-nguyen",
+            children: {
+              file: {
+                ROOT: "tep-tin",
+                UPLOAD: "them-moi",
+                EDIT: "chinh-sua",
+              },
+              folder: {
+                ROOT: "thu-muc",
+                CREATE: "them-moi",
+                EDIT: "chinh-sua",
+              },
+            },
           },
         },
       },

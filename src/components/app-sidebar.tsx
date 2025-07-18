@@ -44,7 +44,7 @@ const brands = [
 const files = [
   {
     title: "Tất cả",
-    url: `${managementRouteName.ROOT}/${managementRouteName.children.file.ROOT}`,
+    url: `${managementRouteName.ROOT}/${managementRouteName.children.resources.ROOT}`,
     icon: File,
   },
 ];
@@ -160,7 +160,7 @@ export function AppSidebar() {
                         },
                       )}
                     >
-                      <div className="text-sm">Tập tin</div>
+                      <div className="text-sm">Tài nguyên</div>
                       <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>

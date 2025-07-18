@@ -1,22 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { Clock, Computer } from "lucide-react";
 import type { FC } from "react";
+import { Link } from "react-router";
+import { routeName } from "@/constants/routeName";
 
 type SidebarProps = {
   handleAddFile?: () => void;
   handleAddFolder?: () => void;
 };
 
+const { file, folder } =
+  routeName.dashboard.children.management.children.resources.children;
+
 export const Sidebar: FC<SidebarProps> = () => {
   return (
     <div className="flex h-full max-h-full flex-col gap-4 overflow-hidden rounded-xs border p-3">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <Button className="w-full rounded-xs" size={"lg"}>
-            Thêm tài liệu
+          <Button className="w-full rounded-xs" size={"lg"} asChild>
+            <Link to={`${file.ROOT}/${file.UPLOAD}`}>Thêm tài liệu</Link>
           </Button>
-          <Button className="w-full rounded-xs" size={"lg"} variant={"outline"}>
-            Thêm thư mục
+          <Button
+            className="w-full rounded-xs"
+            size={"lg"}
+            variant={"outline"}
+            asChild
+          >
+            <Link to={`${folder.ROOT}/${folder.CREATE}`}>Thêm thư mục</Link>
           </Button>
         </div>
       </div>
