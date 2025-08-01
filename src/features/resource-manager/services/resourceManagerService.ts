@@ -19,6 +19,10 @@ type GetSubFolderResourcesParams = {
   folder: string;
 };
 
+type ShrinkImageFromLinkParams = {
+  url: string;
+};
+
 export class ResourceManagerService {
   private _api: ResourceManagerApi;
 
@@ -50,5 +54,9 @@ export class ResourceManagerService {
 
   public getSubFolderResources({ folder }: GetSubFolderResourcesParams) {
     return this._api.getSubFolderResources({ folder });
+  }
+
+  public shrinkImageFromLink({ url }: ShrinkImageFromLinkParams) {
+    return this._api.shrinkImageFromLink({ url });
   }
 }

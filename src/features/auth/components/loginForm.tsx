@@ -11,6 +11,7 @@ import * as loginApi from "../api/login/api";
 import type { ResponseError } from "@/types/response";
 import { AnimatePresence, motion } from "framer-motion";
 import { useProfileStore } from "@/store/profile";
+import { toast } from "sonner";
 
 export const LoginForm: FC = () => {
   const [globalFormError, setGlobalFormError] = useState<string | null>(null);
@@ -27,16 +28,23 @@ export const LoginForm: FC = () => {
 
   const onSubmit = (values: LoginSchemaType) => {
     setGlobalFormError(null);
+    const toastLoading = toast.loading("Đang thực hiện đăng nhập");
     loginApi
       .login({
         data: values,
       })
       .then(async () => {
         login();
+        toast.success("Đăng nhập thành công", {
+          description: "Bạn đã đăng nhập thành công",
+        });
         navigate("/");
       })
       .catch((error: ResponseError) => {
         if (error.error.code === 4010) {
+          toast.error("Đăng nhập thất bại", {
+            description: "Email hoặc mật khẩu không chính xác",
+          });
           setGlobalFormError("Email hoặc mật khẩu không chính xác");
           form.setError("email", {
             type: "value",
@@ -47,6 +55,9 @@ export const LoginForm: FC = () => {
             message: "",
           });
         }
+      })
+      .finally(() => {
+        toast.dismiss(toastLoading);
       });
   };
 

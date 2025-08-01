@@ -16,3 +16,16 @@ export type PaginationSubFolderResources = BasePagination & {
 export type PaginationSearchFileResources = BasePagination & {
   totalCount: number;
 };
+
+export type ShrinkImageFromLink = {
+  input: {
+    size: number;
+    type: string;
+  };
+  output: {
+    size: number;
+    type: string;
+    url: string;
+    ratio: number;
+  };
+};

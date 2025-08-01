@@ -150,19 +150,19 @@ const SheetPreviewImage: FC<SheetPreviewImageProps> = ({
         <SheetPreviewImageBody>
           <SheetPreviewImageBodyItem>
             <SheetPreviewImageBodyItemTitle title="Hình ảnh" />
-            <SheetPreviewImageBodyItemContent>
-              <img
-                className="border p-2"
-                src={getCloudinaryImageUrl({
-                  publicId: file.publicId,
-                  options: {
-                    width: 367,
-                  },
-                })}
-                alt=""
-                width={367}
-              />
-            </SheetPreviewImageBodyItemContent>
+            <img
+              className="w-full border bg-contain p-2"
+              src={getCloudinaryImageUrl({
+                publicId: file.publicId,
+                options: {
+                  width: 367,
+                  height: 250,
+                },
+              })}
+              alt=""
+              width={367}
+              height={250}
+            />
           </SheetPreviewImageBodyItem>
 
           <SheetPreviewImageBodyItem>

@@ -1,19 +1,9 @@
+import type { FileImageType } from "@/types/file";
 import type { FileSize } from "@/types/fileSize";
 import { convertFileSize } from "@/utils/convertFileSize";
+import { GenerateId } from "@/utils/generateId";
 import { returnFileSize } from "@/utils/returnFileSize";
 import { useRef, type ComponentProps, type DragEvent, type FC } from "react";
-
-type FileImageType =
-  | "image/apng"
-  | "image/bmp"
-  | "image/gif"
-  | "image/jpeg"
-  | "image/pjpeg"
-  | "image/png"
-  | "image/svg+xml"
-  | "image/tiff"
-  | "image/webp"
-  | "image/x-icon";
 
 type DropzoneProps = {
   fileInputProps: ComponentProps<"input">;
@@ -25,11 +15,14 @@ type DropzoneProps = {
 };
 
 export type ImagePreview = {
+  id: string;
   imageUrl: string;
   isSuccess: boolean | null;
   error: ("size" | "upload" | "type-file")[];
   nameOriginal: string;
   size: FileSize;
+  type: string;
+  file: File;
 };
 
 export const Dropzone: FC<DropzoneProps> = ({
@@ -60,11 +53,14 @@ export const Dropzone: FC<DropzoneProps> = ({
         }
         const imageUrl = URL.createObjectURL(file);
         return {
+          id: GenerateId.fileImportFromLocal(),
           imageUrl,
           isSuccess,
           error,
           nameOriginal: file.name,
           size: returnFileSize(file.size),
+          type: file.type,
+          file,
         };
       });
 
@@ -97,11 +93,14 @@ export const Dropzone: FC<DropzoneProps> = ({
         }
 
         return {
+          id: GenerateId.fileImportFromLocal(),
           isSuccess,
           error,
           imageUrl: URL.createObjectURL(item),
           nameOriginal: item.name,
           size: returnFileSize(item.size),
+          type: item.type,
+          file: item,
         };
       });
       handleDropFile(imagesPreview);
@@ -126,11 +125,14 @@ export const Dropzone: FC<DropzoneProps> = ({
     }
 
     const imagePreview: ImagePreview = {
+      id: GenerateId.fileImportFromLocal(),
       isSuccess,
       error,
       imageUrl: URL.createObjectURL(file),
       nameOriginal: file.name,
       size: returnFileSize(file.size),
+      type: file.type,
+      file,
     };
 
     handleDropFile([imagePreview]);
