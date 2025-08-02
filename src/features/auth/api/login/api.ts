@@ -7,6 +7,7 @@ type LoginParams = {
   data: LoginSchemaType;
 };
 
+// TODO: Implement service for auth
 export const login = async ({ data }: LoginParams) => {
   try {
     await axiosInstance.post("/auth/local/login", data);
