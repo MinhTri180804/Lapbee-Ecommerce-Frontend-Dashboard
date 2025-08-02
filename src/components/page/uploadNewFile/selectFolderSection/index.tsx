@@ -34,7 +34,7 @@ import {
   SectionContent,
   SectionHeader,
   TitleSection,
-} from "./commons";
+} from "../commons";
 
 type SelectFolderSectionProps = ComponentProps<"section"> & {};
 
@@ -42,11 +42,15 @@ export const SelectFolderSection: FC<SelectFolderSectionProps> = ({
   className,
   ...props
 }) => {
-  const { folder } = useUploadFileManagerState();
-  const { updateFolder } = useUploadFileManagerActions();
+  const { folderSelected } = useUploadFileManagerState();
+  const { updateFolderSelected } = useUploadFileManagerActions();
   const [isCreateFolder, setIsCreateFolder] = useState<boolean>(false);
-  const [folderPath, setFolderPath] = useState<string>(folder?.path || "root");
-  const [folderSelect, setFolderSelect] = useState<FolderType | null>(folder);
+  const [folderPath, setFolderPath] = useState<string>(
+    folderSelected?.path || "root",
+  );
+  const [folderSelect, setFolderSelect] = useState<FolderType | null>(
+    folderSelected,
+  );
   const [folderData, setFolderData] = useState<FolderType[]>([]);
 
   const { data, isLoading } = useGetSubFolderResources({ folder: folderPath });
@@ -112,17 +116,17 @@ export const SelectFolderSection: FC<SelectFolderSectionProps> = ({
   };
 
   const handleConfirmSelectFolder = () => {
-    updateFolder(folderSelect);
+    updateFolderSelected(folderSelect);
   };
 
   const handleSelectInHere = () => {
     if (folderPath === "root") {
       // Root folder
-      updateFolder(null);
+      updateFolderSelected(null);
       return;
     }
 
-    updateFolder({
+    updateFolderSelected({
       name: folderPath.split("/")[folderPath.split("/").length - 1],
       path: folderPath,
       externalId: "",
@@ -138,7 +142,7 @@ export const SelectFolderSection: FC<SelectFolderSectionProps> = ({
         <Dialog>
           <DialogTrigger asChild>
             <div className="flex w-full cursor-pointer items-center justify-center rounded-sm border border-dashed border-gray-400 bg-white py-8 text-sm font-medium hover:bg-gray-50">
-              <FolderSelected folderPath={folder?.path || null} />
+              <FolderSelected folderPath={folderSelected?.path || null} />
             </div>
           </DialogTrigger>
           <DialogContent className="flex flex-col gap-6 overflow-y-auto sm:max-h-[70%] sm:min-h-[50%] sm:max-w-[70%] sm:min-w-[50%]">

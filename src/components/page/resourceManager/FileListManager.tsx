@@ -6,6 +6,8 @@ import {
   ResourcesManagerSectionTitle,
 } from "@/features/resource-manager";
 import { useSearchParams } from "react-router";
+import { FileManagerSection } from "./FileManagerSection";
+import { FileManagerBasedFolderSection } from "./FileManagerBasedFolderSection";
 
 export const FileListManager: FC = () => {
   const [searchParams] = useSearchParams();

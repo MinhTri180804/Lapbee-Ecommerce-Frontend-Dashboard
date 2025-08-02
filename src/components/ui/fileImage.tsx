@@ -42,6 +42,8 @@ export const FileImage: FC<FileImageProps> = React.memo(({ data }) => {
         options: {
           width: containerRef.current?.clientWidth,
           height: 139,
+          format: "webp",
+          quality: "auto",
         },
       }),
     );

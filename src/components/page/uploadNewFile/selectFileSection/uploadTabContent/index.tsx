@@ -22,12 +22,12 @@ import {
   SheetPreviewImageSpecsDimensions,
   SheetPreviewImageSpecsItem,
   SheetPreviewImageSpecsList,
-} from "./commons";
+} from "../../commons";
 
 type UploadTabContentProps = {
   mock?: null;
 };
-export const UploadTabContent: FC<UploadTabContentProps> = () => {
+const UploadTabContent: FC<UploadTabContentProps> = () => {
   const [files, setFiles] = useState<ImagePreviewType[]>([]);
 
   return (
@@ -167,3 +167,5 @@ const SheetBodyContent: FC<SheetBodyContentProps> = ({ data }) => {
     </>
   );
 };
+
+export default UploadTabContent;

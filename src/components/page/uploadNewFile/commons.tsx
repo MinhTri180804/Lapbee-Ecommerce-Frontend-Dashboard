@@ -19,7 +19,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import type { ImageImportFromLink } from "./linkTabContent";
+import type { ImageImportFromLink } from "./selectFileSection/linkTabContent";
 
 // Components for the section, title, header, and content
 

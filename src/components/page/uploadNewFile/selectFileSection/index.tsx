@@ -6,9 +6,9 @@ import {
   SectionContent,
   SectionHeader,
   TitleSection,
-} from "./commons";
-import { LinkTabContent } from "./linkTabContent";
-import { UploadTabContent } from "./uploadTabContent";
+} from "../commons";
+import UploadTabContent from "./uploadTabContent";
+import LinkTabContent from "./linkTabContent";
 
 type SelectFileSectionProps = ComponentProps<"section"> & {};
 

@@ -1,75 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  dispatchAddFileFromLink,
-  useUploadFileManagerActions,
-  useUploadFileManagerState,
-} from "@/contexts/uploadFileManager";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   addLinkImageSchema,
   type AddLinkImageSchemaType,
 } from "@/features/auth/schema/addLinkImage.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  dispatchAddFileFromLink,
+  useUploadFileManagerActions,
+} from "@/contexts/uploadFileManager";
 import type { FC } from "react";
 import { useForm } from "react-hook-form";
-import { EmptyFile } from "./commons";
-import { ImageImportFromLinkPreview } from "./imageImportFromLinkPreview";
 import { AnimatePresence, motion } from "framer-motion";
-import { toast } from "sonner";
-import { Upload } from "lucide-react";
 
-type LinkTabContentProps = {
-  mock?: null;
-};
-
-export type ImageImportFromLink = {
-  id: string;
-  url: string;
-};
-
-export const LinkTabContent: FC<LinkTabContentProps> = () => {
-  return (
-    <div className="flex w-full flex-col gap-5">
-      <FormAddLinkImage />
-      <ImagePreviewList />
-      <UploadAction />
-    </div>
-  );
-};
-
-const UploadAction: FC = () => {
-  const { filesFromLink } = useUploadFileManagerState();
-
-  const handleUpload = () => {
-    console.log(filesFromLink);
-  };
-
-  return (
-    <AnimatePresence>
-      {filesFromLink.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 4 }}
-          className="w-full"
-        >
-          <Button
-            variant="outline"
-            size={"lg"}
-            className="w-full"
-            onClick={handleUpload}
-          >
-            <Upload />
-            Đăng tải
-          </Button>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
-const FormAddLinkImage: FC = () => {
+export const FormAddLinkImage: FC = () => {
   const form = useForm<AddLinkImageSchemaType>({
     resolver: zodResolver(addLinkImageSchema),
     defaultValues: {
@@ -146,24 +92,5 @@ const FormAddLinkImage: FC = () => {
         </AnimatePresence>
       </form>
     </Form>
-  );
-};
-
-const ImagePreviewList: FC = () => {
-  const { filesFromLink } = useUploadFileManagerState();
-  return (
-    <div className="grid w-full grid-cols-12 gap-3">
-      {filesFromLink.length ? (
-        filesFromLink.map((image) => (
-          <ImageImportFromLinkPreview key={image.id} data={image} />
-        ))
-      ) : (
-        <EmptyFile
-          className="col-span-12"
-          titleText="Chưa có hình ảnh nào được thêm bằng đường dẫn"
-          descriptionText="Bạn có thể chọn đường dẫn hình ảnh muốn thêm vào và đăng tải"
-        />
-      )}
-    </div>
   );
 };
