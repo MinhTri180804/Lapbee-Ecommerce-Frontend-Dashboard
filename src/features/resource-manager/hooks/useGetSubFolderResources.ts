@@ -5,15 +5,20 @@ type UseGetSubFolderResourcesParams = {
   folder: string;
 };
 
-export function getQueryKeys() {
-  return ["getSubFolderResources"];
+type GetSubFolderResourcesQueryKeysParams = UseGetSubFolderResourcesParams;
+
+export function getSubFolderResourcesQueryKeys({
+  folder,
+}: GetSubFolderResourcesQueryKeysParams) {
+  return ["getSubFolderResources", folder];
 }
 
 export function useGetSubFolderResources({
   folder,
 }: UseGetSubFolderResourcesParams) {
   return useQuery({
-    queryKey: [getQueryKeys(), folder],
-    queryFn: () => resourceManagerService.getSubFolderResources({ folder }),
+    queryKey: getSubFolderResourcesQueryKeys({ folder }),
+    queryFn: ({ signal }) =>
+      resourceManagerService.getSubFolderResources({ folder, signal }),
   });
 }

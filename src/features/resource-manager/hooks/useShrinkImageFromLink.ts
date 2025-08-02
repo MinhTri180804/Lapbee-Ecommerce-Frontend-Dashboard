@@ -1,13 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { resourceManagerService } from "../services";
 
-export const getQueryKeys = (url: string) => {
-  return ["shrinkImageFromLink", url];
+type UseShrinkImageFromLinkParams = {
+  url: string;
 };
 
-export const useShrinkImageFromLink = (url: string) => {
+type GetShrinkImageFromLinkQueryKeysParams = UseShrinkImageFromLinkParams;
+
+export function getShrinkImageFromLinkQueryKeys({
+  url,
+}: GetShrinkImageFromLinkQueryKeysParams) {
+  return ["shrinkImageFromLink", url];
+}
+
+export const useShrinkImageFromLink = ({
+  url,
+}: UseShrinkImageFromLinkParams) => {
   return useQuery({
-    queryKey: getQueryKeys(url),
+    queryKey: getShrinkImageFromLinkQueryKeys({ url }),
     queryFn: () => resourceManagerService.shrinkImageFromLink({ url }),
     enabled: false,
     refetchOnWindowFocus: false,

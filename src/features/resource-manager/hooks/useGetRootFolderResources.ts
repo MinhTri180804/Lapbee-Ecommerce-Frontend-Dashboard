@@ -1,19 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  type QueryKey,
+  type UseQueryResult,
+} from "@tanstack/react-query";
 import { resourceManagerService } from "../services";
 
 type UseGetRootFolderResourcesParams = {
   nextCursor: string | null;
 };
 
-export function getQueryKeys() {
-  return ["getRootFolderResources"];
+export function getRootFolderResourcesQueryKeys({
+  nextCursor,
+}: UseGetRootFolderResourcesParams): QueryKey {
+  return ["getRootFolderResources", nextCursor];
 }
 
 export function useGetRootFolderResources({
   nextCursor,
-}: UseGetRootFolderResourcesParams) {
+}: UseGetRootFolderResourcesParams): UseQueryResult {
   return useQuery({
-    queryKey: [getQueryKeys(), nextCursor],
+    queryKey: getRootFolderResourcesQueryKeys({ nextCursor }),
     queryFn: () =>
       resourceManagerService.getRootFolderResources({ nextCursor }),
   });

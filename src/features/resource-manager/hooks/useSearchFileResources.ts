@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, type QueryKey } from "@tanstack/react-query";
 import { resourceManagerService } from "../services";
 
 type UseSearchFileResourcesParams = {
@@ -8,8 +8,17 @@ type UseSearchFileResourcesParams = {
   maxResult: string;
 };
 
-export function getQueryKeys() {
-  return ["searchFileResources"];
+type GetSearchFileResourcesQueryKeysParams = UseSearchFileResourcesParams & {
+  folder: string;
+};
+
+export function getSearchFileResourcesQueryKeys({
+  nextCursor,
+  filename,
+  folder,
+  maxResult,
+}: GetSearchFileResourcesQueryKeysParams): QueryKey {
+  return ["searchFileResources", nextCursor, filename, folder, maxResult];
 }
 
 export function useSearchFileResources({
@@ -19,7 +28,13 @@ export function useSearchFileResources({
   maxResult,
 }: UseSearchFileResourcesParams) {
   return useQuery({
-    queryKey: [getQueryKeys(), nextCursor, filename, folder, maxResult],
+    queryKey: getSearchFileResourcesQueryKeys({
+      nextCursor,
+      filename,
+      folder,
+      maxResult,
+    }),
+
     queryFn: () =>
       resourceManagerService.searchFileResources({
         nextCursor,
