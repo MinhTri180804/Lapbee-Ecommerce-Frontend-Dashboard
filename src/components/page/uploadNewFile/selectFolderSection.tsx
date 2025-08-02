@@ -1,20 +1,11 @@
+import folderIcon18 from "@/assets/icons/folder-18.svg";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useGetSubFolderResources } from "@/features/resource-manager";
-import { cn } from "@/lib/utils";
-import type { Folder as FolderType } from "@/types/folder";
-import { useEffect, useState, type ComponentProps, type FC } from "react";
-import folderIcon18 from "@/assets/icons/folder-18.svg";
-import {
-  Section,
-  SectionContent,
-  SectionHeader,
-  TitleSection,
-} from "./commons";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -30,8 +21,20 @@ import {
   FolderCreatePlaceholder,
   FolderSkeleton,
 } from "@/components/ui/folder";
-import { Button } from "@/components/ui/button";
-import { useUploadFileManager } from "@/contexts/uploadFileManager";
+import {
+  useUploadFileManagerActions,
+  useUploadFileManagerState,
+} from "@/contexts/uploadFileManager";
+import { useGetSubFolderResources } from "@/features/resource-manager";
+import { cn } from "@/lib/utils";
+import type { Folder as FolderType } from "@/types/folder";
+import { useEffect, useState, type ComponentProps, type FC } from "react";
+import {
+  Section,
+  SectionContent,
+  SectionHeader,
+  TitleSection,
+} from "./commons";
 
 type SelectFolderSectionProps = ComponentProps<"section"> & {};
 
@@ -39,7 +42,8 @@ export const SelectFolderSection: FC<SelectFolderSectionProps> = ({
   className,
   ...props
 }) => {
-  const { folder, setFolder } = useUploadFileManager();
+  const { folder } = useUploadFileManagerState();
+  const { updateFolder } = useUploadFileManagerActions();
   const [isCreateFolder, setIsCreateFolder] = useState<boolean>(false);
   const [folderPath, setFolderPath] = useState<string>(folder?.path || "root");
   const [folderSelect, setFolderSelect] = useState<FolderType | null>(folder);
@@ -108,17 +112,17 @@ export const SelectFolderSection: FC<SelectFolderSectionProps> = ({
   };
 
   const handleConfirmSelectFolder = () => {
-    setFolder(folderSelect);
+    updateFolder(folderSelect);
   };
 
   const handleSelectInHere = () => {
     if (folderPath === "root") {
       // Root folder
-      setFolder(null);
+      updateFolder(null);
       return;
     }
 
-    setFolder({
+    updateFolder({
       name: folderPath.split("/")[folderPath.split("/").length - 1],
       path: folderPath,
       externalId: "",
