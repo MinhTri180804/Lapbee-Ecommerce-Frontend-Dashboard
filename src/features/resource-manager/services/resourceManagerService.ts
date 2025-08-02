@@ -17,10 +17,17 @@ type SearchFileResourcesParams = {
 
 type GetSubFolderResourcesParams = {
   folder: string;
+  signal: AbortSignal;
 };
 
 type ShrinkImageFromLinkParams = {
   url: string;
+};
+
+type UploadImageResourcesFromLinkParams = {
+  link: string;
+  folderPath: string;
+  filename: string;
 };
 
 export class ResourceManagerService {
@@ -52,11 +59,17 @@ export class ResourceManagerService {
     });
   }
 
-  public getSubFolderResources({ folder }: GetSubFolderResourcesParams) {
-    return this._api.getSubFolderResources({ folder });
+  public getSubFolderResources({
+    folder,
+    signal,
+  }: GetSubFolderResourcesParams) {
+    return this._api.getSubFolderResources({ folder, signal });
   }
 
   public shrinkImageFromLink({ url }: ShrinkImageFromLinkParams) {
     return this._api.shrinkImageFromLink({ url });
   }
+  // public uploadImageResourcesFromLink({}: ) {
+
+  // }
 }

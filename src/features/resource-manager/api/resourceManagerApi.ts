@@ -6,6 +6,7 @@ import type {
   PaginationSearchFileResources,
   PaginationSubFolderResources,
   ShrinkImageFromLink,
+  UploadedImageResourcesFromLinkResponse,
 } from "../types";
 import type {
   GetRootFileResourcesParams,
@@ -14,6 +15,7 @@ import type {
   IResourceManagerApi,
   SearchFileResourcesParams,
   ShrinkImageFromLinkParams,
+  UploadImageResourcesFromLinkParams,
 } from "./interface";
 import { axiosInstance } from "@/lib/axios";
 import type { Folder, SubFolder } from "@/types/folder";
@@ -87,6 +89,7 @@ export class ResourceManagerApi implements IResourceManagerApi {
 
   public async getSubFolderResources({
     folder,
+    signal,
   }: GetSubFolderResourcesParams): Promise<
     ResponseSuccess<SubFolder[], PaginationSubFolderResources>
   > {
@@ -94,7 +97,7 @@ export class ResourceManagerApi implements IResourceManagerApi {
     const response = await axiosInstance.get<
       SubFolder,
       ResponseSuccess<SubFolder[], PaginationSubFolderResources>
-    >(`${CLOUDINARY_API_URL}/folders/sub${query}`);
+    >(`${CLOUDINARY_API_URL}/folders/sub${query}`, { signal });
     return response;
   }
 
@@ -103,6 +106,22 @@ export class ResourceManagerApi implements IResourceManagerApi {
       ShrinkImageFromLink,
       ResponseSuccess<ShrinkImageFromLink>
     >(`${TINY_PNG_API_URL}/shrink/from-url`, { url });
+    return response;
+  }
+
+  public async uploadImageResourcesFromLink({
+    link,
+    folderPath,
+    filename,
+  }: UploadImageResourcesFromLinkParams) {
+    const response = await axiosInstance.post<
+      UploadedImageResourcesFromLinkResponse,
+      ResponseSuccess<UploadedImageResourcesFromLinkResponse>
+    >(`${CLOUDINARY_API_URL}/files/upload-from-link`, {
+      link,
+      folderPath,
+      filename,
+    });
     return response;
   }
 }

@@ -118,7 +118,7 @@ const SheetImageInfo: FC<SheetImageInfoProps> = memo(
     const { filesFromLink } = useUploadFileManagerState();
 
     const { refetch, isLoading: isRefetchingShrinkImage } =
-      useShrinkImageFromLink(data.linkImage);
+      useShrinkImageFromLink({ url: data.linkImage });
 
     const handleChangeSwitchOptimization = useCallback(
       (checked: boolean) => {
@@ -257,7 +257,7 @@ const OptimizationImageAction: FC<OptimizationImageActionProps> = ({
     refetch,
     isRefetching: isRefetchingShrinkImage,
     isRefetchError,
-  } = useShrinkImageFromLink(data.linkImage);
+  } = useShrinkImageFromLink({ url: data.linkImage });
 
   const handleChangeSwitch = useCallback(
     (checked: boolean) => {
