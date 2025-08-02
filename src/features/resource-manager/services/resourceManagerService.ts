@@ -26,8 +26,9 @@ type ShrinkImageFromLinkParams = {
 
 type UploadImageResourcesFromLinkParams = {
   link: string;
-  folderPath: string;
+  folderPath: string | null;
   filename: string;
+  signal: AbortSignal;
 };
 
 export class ResourceManagerService {
@@ -69,7 +70,19 @@ export class ResourceManagerService {
   public shrinkImageFromLink({ url }: ShrinkImageFromLinkParams) {
     return this._api.shrinkImageFromLink({ url });
   }
-  // public uploadImageResourcesFromLink({}: ) {
 
-  // }
+  public uploadImageResourcesFromLink({
+    link,
+    folderPath,
+    filename,
+    signal,
+  }: UploadImageResourcesFromLinkParams) {
+    return this._api.uploadImageResourcesFromLink({
+      link,
+      // folderPath = "" -> root folder assets
+      folderPath: folderPath ? folderPath : "",
+      filename,
+      signal,
+    });
+  }
 }

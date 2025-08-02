@@ -113,15 +113,20 @@ export class ResourceManagerApi implements IResourceManagerApi {
     link,
     folderPath,
     filename,
+    signal,
   }: UploadImageResourcesFromLinkParams) {
     const response = await axiosInstance.post<
       UploadedImageResourcesFromLinkResponse,
       ResponseSuccess<UploadedImageResourcesFromLinkResponse>
-    >(`${CLOUDINARY_API_URL}/files/upload-from-link`, {
-      link,
-      folderPath,
-      filename,
-    });
+    >(
+      `${CLOUDINARY_API_URL}/files/upload-from-link`,
+      {
+        link,
+        folderPath,
+        filename,
+      },
+      { signal },
+    );
     return response;
   }
 }

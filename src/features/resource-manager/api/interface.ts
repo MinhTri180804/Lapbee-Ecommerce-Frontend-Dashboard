@@ -7,6 +7,7 @@ import type {
   PaginationSearchFileResources,
   PaginationSubFolderResources,
   ShrinkImageFromLink,
+  UploadedImageResourcesFromLinkResponse,
 } from "../types";
 
 export type GetRootFileResourcesParams = {
@@ -26,10 +27,18 @@ export type SearchFileResourcesParams = {
 
 export type GetSubFolderResourcesParams = {
   folder: string;
+  signal: AbortSignal;
 };
 
 export type ShrinkImageFromLinkParams = {
   url: string;
+};
+
+export type UploadImageResourcesFromLinkParams = {
+  link: string;
+  folderPath: string;
+  filename: string;
+  signal: AbortSignal;
 };
 
 export interface IResourceManagerApi {
@@ -52,4 +61,8 @@ export interface IResourceManagerApi {
   shrinkImageFromLink: (
     params: ShrinkImageFromLinkParams,
   ) => Promise<ResponseSuccess<ShrinkImageFromLink>>;
+
+  uploadImageResourcesFromLink: (
+    params: UploadImageResourcesFromLinkParams,
+  ) => Promise<ResponseSuccess<UploadedImageResourcesFromLinkResponse>>;
 }

@@ -29,3 +29,14 @@ export type ShrinkImageFromLink = {
     ratio: number;
   };
 };
+
+export type UploadedImageResourcesFromLinkResponse = {
+  publicId: string;
+  width: number;
+  height: number;
+  format: string;
+  size: number;
+  filename: string;
+  folderPath: string;
+  uploadedAt: string;
+};

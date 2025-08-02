@@ -1,5 +1,4 @@
 import type { FileImageType } from "@/types/file";
-import type { Folder } from "@/types/folder";
 import {
   useCallback,
   useMemo,
@@ -12,14 +11,19 @@ import {
   UploadFileManagerContext,
   UploadFileManagerStateContext,
 } from "./context";
-import type { FileImageFromLocal, FileImageFromLink } from "./type";
+import type {
+  FileImageFromLink,
+  FileImageFromLinkUpload,
+  FileImageFromLocal,
+} from "./type";
+import type { Folder } from "@/types/folder";
 
 type UploadFileManagerProviderProps = PropsWithChildren;
 
 export const UploadFileManagerProvider: FC<UploadFileManagerProviderProps> = ({
   children,
 }) => {
-  const [folder] = useState<Folder | null>(null);
+  const [folderSelected, setFolderSelected] = useState<Folder | null>(null);
   const [accessFilesType, setAccessFilesType] = useState<FileImageType[]>([]);
 
   const [filesFromLocal, setFilesFromLocal] = useState<FileImageFromLocal[]>(
@@ -27,6 +31,15 @@ export const UploadFileManagerProvider: FC<UploadFileManagerProviderProps> = ({
   );
 
   const [filesFromLink, setFilesFromLink] = useState<FileImageFromLink[]>([]);
+
+  const [filesImageFromLinkUpload, setFilesImageFromLinkUpload] = useState<
+    FileImageFromLinkUpload[]
+  >([]);
+
+  // Method related interactive folder
+  const updateFolderSelected = useCallback((folderSelected: Folder | null) => {
+    setFolderSelected(folderSelected);
+  }, []);
 
   // Method related files from local
   const addFileFromLocal = useCallback((file: FileImageFromLocal) => {
@@ -104,14 +117,29 @@ export const UploadFileManagerProvider: FC<UploadFileManagerProviderProps> = ({
     setAccessFilesType(filesType);
   }, []);
 
+  // Methods related file image from link upload
+  const addFileImageFromLinkUpload = useCallback(
+    (file: FileImageFromLinkUpload) => {
+      setFilesImageFromLinkUpload((prev) => [...prev, file]);
+    },
+    [],
+  );
+
   const state = useMemo(
     () => ({
-      folder,
+      folderSelected,
       accessFilesType,
       filesFromLocal,
       filesFromLink,
+      filesImageFromLinkUpload,
     }),
-    [folder, accessFilesType, filesFromLocal, filesFromLink],
+    [
+      folderSelected,
+      accessFilesType,
+      filesFromLocal,
+      filesFromLink,
+      filesImageFromLinkUpload,
+    ],
   );
 
   const actions = useMemo(
@@ -126,6 +154,8 @@ export const UploadFileManagerProvider: FC<UploadFileManagerProviderProps> = ({
       toggleOptimizationImageFromLink,
       toggleRenameFileFromLink,
       updateRenameFileFromLink,
+      updateFolderSelected,
+      addFileImageFromLinkUpload,
     }),
     [
       addFileFromLink,
@@ -138,6 +168,8 @@ export const UploadFileManagerProvider: FC<UploadFileManagerProviderProps> = ({
       toggleOptimizationImageFromLink,
       toggleRenameFileFromLink,
       updateRenameFileFromLink,
+      updateFolderSelected,
+      addFileImageFromLinkUpload,
     ],
   );
 

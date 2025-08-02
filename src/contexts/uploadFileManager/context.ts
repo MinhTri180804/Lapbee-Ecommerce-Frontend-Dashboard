@@ -1,16 +1,22 @@
 import type { FileImageType } from "@/types/file";
 import { createContext } from "react";
-import type { FileImageFromLocal, FileImageFromLink } from "./type";
+import type {
+  FileImageFromLink,
+  FileImageFromLinkUpload,
+  FileImageFromLocal,
+} from "./type";
+import type { Folder } from "@/types/folder";
 
 export type UploadFileManagerState = {
-  //   folder: Folder | null;
+  folderSelected: Folder | null;
   accessFilesType: FileImageType[];
   filesFromLocal: FileImageFromLocal[];
   filesFromLink: FileImageFromLink[];
+  filesImageFromLinkUpload: FileImageFromLinkUpload[];
 };
 
 export type UploadFileManagerActions = {
-  //   setFolder: React.Dispatch<React.SetStateAction<Folder | null>>;
+  updateFolderSelected: (folder: Folder | null) => void;
   // setFilesFromLocal: React.Dispatch<React.SetStateAction<FileFromLocal[]>>;
   addFileFromLink: (file: FileImageFromLink) => void;
   removeFileFromLink: (id: string) => void;
@@ -25,6 +31,7 @@ export type UploadFileManagerActions = {
   setAccessFileType: (filesType: FileImageType[]) => void;
   toggleRenameFileFromLink: (id: string, enable: boolean) => void;
   updateRenameFileFromLink: (id: string, rename: string) => void;
+  addFileImageFromLinkUpload: (file: FileImageFromLinkUpload) => void;
 };
 
 export const UploadFileManagerStateContext =

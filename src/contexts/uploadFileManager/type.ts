@@ -1,3 +1,5 @@
+import type { UploadedImageResourcesFromLinkResponse } from "@/features/resource-manager";
+
 export type FileImageFromLocal = {
   id: string;
   originalName: string;
@@ -29,4 +31,15 @@ export type FileImageFromLink = {
     };
   } | null;
   linkImage: string;
+};
+
+export type FileImageFromLinkUpload = {
+  id: string;
+  state: "pending" | "success" | "error";
+  data: {
+    url: string;
+    filename: string;
+    exp: string;
+  };
+  uploadedData: UploadedImageResourcesFromLinkResponse | null;
 };

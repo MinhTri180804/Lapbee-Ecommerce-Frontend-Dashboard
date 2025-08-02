@@ -5,7 +5,10 @@ type UseGetSubFolderResourcesParams = {
   folder: string;
 };
 
-type GetSubFolderResourcesQueryKeysParams = UseGetSubFolderResourcesParams;
+type GetSubFolderResourcesQueryKeysParams = Pick<
+  UseGetSubFolderResourcesParams,
+  "folder"
+>;
 
 export function getSubFolderResourcesQueryKeys({
   folder,
