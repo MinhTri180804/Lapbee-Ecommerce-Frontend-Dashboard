@@ -1,5 +1,8 @@
-import { SelectFileSection } from "@/components/page/uploadNewFile";
-import { SelectFolderSection } from "@/components/page/uploadNewFile/selectFolderSection";
+import {
+  SelectFileSection,
+  SelectFolderSection,
+  UploadSection,
+} from "@/components/page/uploadNewFile";
 import { UploadFileManagerProvider } from "@/contexts/uploadFileManager";
 
 export const UploadNewFilePage = () => {
@@ -13,6 +16,7 @@ export const UploadNewFilePage = () => {
       <UploadFileManagerProvider>
         <SelectFolderSection />
         <SelectFileSection />
+        <UploadSection />
       </UploadFileManagerProvider>
     </div>
   );
